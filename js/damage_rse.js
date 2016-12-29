@@ -120,8 +120,11 @@ function CALCULATE_DAMAGE_ADV(attacker, defender, move, field) {
         description.attackerAbility = attacker.ability;
     }
     
-    if (getItemBoostType(attacker.item) === move.type) {
+    if (attacker.item !== "Sea Incense" && getItemBoostType(attacker.item) === move.type) {
         at = Math.floor(at * 1.1);
+        description.attackerItem = attacker.item;
+    } else if (attacker.item === "Sea Incense" && move.type === "Water") {
+        at = Math.floor(at * 1.05);
         description.attackerItem = attacker.item;
     } else if ((isPhysical && attacker.item === "Choice Band") ||
             (!isPhysical && attacker.item === "Soul Dew" && (attacker.name === "Latios" || attacker.name === "Latias"))) {
@@ -151,7 +154,7 @@ function CALCULATE_DAMAGE_ADV(attacker, defender, move, field) {
         description.defenderAbility = defender.ability;
     }
     
-    if (isPhysical && (attacker.ability === "Hustle" || (attacker.ability === "Guts" && attacker.status !== "Healthy"))) {
+    if (isPhysical && (attacker.ability === "Hustle" || (attacker.ability === "Guts" && attacker.status !== "Healthy")) || (!isPhysical && (attacker.ability === "Plus" || attacker.ability === "Minus"))) {
         at = Math.floor(at * 1.5);
         description.attackerAbility = attacker.ability;
     } else if (attacker.curHP <= attacker.maxHP / 3 &&
