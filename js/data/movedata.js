@@ -2646,7 +2646,6 @@ export default {
     "category": "Physical",
     "isMultiHit": true
   },
-  {
   "10,000,000 Volt Thunderbolt": {
     bp: 195,
     type: "Electric",
